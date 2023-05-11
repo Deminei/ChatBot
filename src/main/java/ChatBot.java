@@ -3,19 +3,32 @@ import java.util.Scanner;
 public class ChatBot {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String name = "";
 
-        // Method 1: Greet the user
+        String name = greetUser(sc);
+        String repeatedName = askToRepeatName(sc);
+
+        int age = guessUserAge(sc, repeatedName);
+        countToNumber(sc);
+        testProgrammingKnowledge(sc, repeatedName);
+
+        sc.close();
+    }
+
+    public static String greetUser(Scanner sc) {
         System.out.println("Hi there! ヾ(＾∇＾)  I'm a ChatBot. What's your name?");
+        return sc.nextLine();
+    }
 
-        // Method 2: Ask the user to repeat their name
-        name = sc.nextLine();
-        System.out.println("Nice to meet you, " + name + "! Can you please repeat your name for me?");
-        String repeatedName = sc.nextLine();
+    public static String askToRepeatName(Scanner sc) {
+        System.out.println("Can you please repeat your name for me?");
+        String repeatedName;
+        repeatedName = sc.nextLine();
+        return repeatedName;
+    }
 
-        // Method 3: Guess the user's age
-        System.out.println("Thanks, " + name + "! Let's try to guess your age. What year were you born?(or you can type 'no')");
-        // Check if the user entered 'no'
+
+    public static int guessUserAge(Scanner sc, String repeatedName) {
+        System.out.println("Thanks, " + repeatedName + "! Let's try to guess your age. What year were you born? (or you can type 'no')");
         String birthYearInput = sc.nextLine();
         if (birthYearInput.equals("no")) {
             System.out.println("Alright! Let's try some different questions to guess your age.");
@@ -31,9 +44,13 @@ public class ChatBot {
             int birthYear = Integer.parseInt(birthYearInput);
             int age = 2023 - birthYear;
             System.out.println("I'm guessing you're " + age + " years old. Am I right?");
+            return age;
         }
 
-        // Method 4: Count to any number the user wants
+        return 0;
+    }
+
+    public static void countToNumber(Scanner sc) {
         System.out.println("Let's do something fun! Can you tell me a number to count up to?");
         int countNumber = sc.nextInt();
         StringBuilder sb = new StringBuilder();
@@ -44,13 +61,13 @@ public class ChatBot {
             }
         }
         System.out.println(sb.toString());
+        sc.nextLine();
+    }
 
-        // Resets the answer variable for stage 5
-        sc.nextLine();  // consumes the remaining newline character
+    public static void testProgrammingKnowledge(Scanner sc, String repeatedName) {
         String answer = "";
+        System.out.println("That was fun! Now let's test your programming knowledge. (^_^ ) ");
 
-        System.out.println("That was fun! Now let's test your programming knowledge. d(>_･ ) ");
-        // Method 5: Test the user's programming knowledge
         while (!answer.equals("4")) {
             System.out.println("Which of these are selection statements in Java?");
             System.out.println("1. break");
@@ -64,7 +81,6 @@ public class ChatBot {
         }
         System.out.println(" d(>_･ ) You got it!");
         System.out.println("Continue and break are jump statements, and for() is a looping statement.");
-        System.out.println("I had a lot of fun! Thanks for chatting with me, " + name + ". See ya later!");
-
+        System.out.println("I had a lot of fun! Thanks for chatting with me, " + repeatedName + ". See ya later!");
     }
 }
